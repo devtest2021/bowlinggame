@@ -2,7 +2,7 @@ A simple spring boot application which gives the possibility to submit and get s
 
 ## Prerequisite
 
-	POSTMAN Api Application should be installed  
+	POSTMAN API Application
 
 ## Installation
 	

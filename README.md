@@ -1,4 +1,4 @@
-# bowlinggame
+# Bowling Game
 Bowling game 
 
 How to run the application ?

@@ -72,17 +72,23 @@ public class BowlingServiceImpl implements BowlingService {
         if (frame == null) {
             return 0;
         }
-        // Spare 
+        
+        if (frame.isStrike()) {
+            if (strikeBonus(frameNo) == -1) { // Waiting for next frame(s) to be scored
+                frame.setScored(false);
+                return 0;
+            }
+            frame.setScored(true);
+            return 10 + strikeBonus(frameNo);
+        }
         if (frame.isSpare()) {
-            if (spareBonus(frameNo) == -1) { 
-                // waiting for next frame's firstTry
+            if (spareBonus(frameNo) == -1) { // waiting for next frame to be scored
                 frame.setScored(false);
                 return 0;
             }
             frame.setScored(true);
             return 10 + spareBonus(frameNo);
         }
-
         frame.setScored(true);
         return frame.getFirstTry() + frame.getSecondTry();
     }
@@ -96,4 +102,23 @@ public class BowlingServiceImpl implements BowlingService {
         return nextFrame == null ? -1 : nextFrame.getFirstTry();
     }
 
+    private int strikeBonus(int frameNo) {
+        if (frameNo == 9) {
+            Frame lastFrame = allFrames[frameNo];
+            return lastFrame.getSecondTry() + lastFrame.getThirdTry();
+        }
+        Frame nextFrame = allFrames[frameNo + 1];
+        if (nextFrame == null) {
+            return -1;
+        }
+        if (nextFrame.isStrike()) {
+            if (frameNo == 9) {
+                // next frame is the last frame which is special
+                return 10 + nextFrame.getSecondTry(); 
+            }
+            Frame nextNextFrame = allFrames[frameNo + 1];
+            return nextNextFrame == null ? -1 : 10 + nextNextFrame.getFirstTry();
+        }
+        return nextFrame.getFirstTry() + nextFrame.getSecondTry();
+    }
 }

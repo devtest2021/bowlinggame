@@ -1,0 +1,80 @@
+{
+	"info": {
+		"_postman_id": "248b0322-aa23-403b-a586-633185c1c359",
+		"name": "BowlingGame",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "submitScore",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"allframes\": [\r\n        {\r\n            \"firstTry\": 5,\r\n            \"secondTry\": 5\r\n        },\r\n        {\r\n            \"firstTry\": 5,\r\n            \"secondTry\": 5\r\n        },\r\n        {\r\n            \"firstTry\": 5,\r\n            \"secondTry\": 5\r\n        },\r\n        {\r\n            \"firstTry\": 5,\r\n            \"secondTry\": 5\r\n        },\r\n        {\r\n            \"firstTry\": 5,\r\n            \"secondTry\": 5\r\n        },\r\n        {\r\n            \"firstTry\": 5,\r\n            \"secondTry\": 5\r\n        },\r\n        {\r\n            \"firstTry\": 5,\r\n            \"secondTry\": 5\r\n        },\r\n        {\r\n            \"firstTry\": 5,\r\n            \"secondTry\": 5\r\n        },\r\n        {\r\n            \"firstTry\": 5,\r\n            \"secondTry\": 5\r\n        },\r\n        {\r\n            \"firstTry\": 5,\r\n            \"secondTry\": 5,\r\n            \"thirdTry\": 5\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/bowling/0f57b4f0-b8f5-48eb-9775-7593afc855cf/score",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bowling",
+						"0f57b4f0-b8f5-48eb-9775-7593afc855cf",
+						"score"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getScore",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bowling/0f57b4f0-b8f5-48eb-9775-7593afc855cf/score",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bowling",
+						"0f57b4f0-b8f5-48eb-9775-7593afc855cf",
+						"score"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newPlayer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bowling/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bowling",
+						"new"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

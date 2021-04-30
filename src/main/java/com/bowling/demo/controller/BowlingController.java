@@ -1,8 +1,11 @@
 package com.bowling.demo.controller;
 
+import java.util.Optional;
+
 import com.bowling.demo.Utils.BowlingUtils;
 import com.bowling.demo.model.Frames;
 import com.bowling.demo.model.Response;
+import com.bowling.demo.model.Score;
 import com.bowling.demo.service.BowlingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,30 +32,35 @@ public class BowlingController {
     private BowlingService bowlingService;
 
     @GetMapping(value = "/new")
-    public ResponseEntity<Response> startNewPlayer() {
+    public ResponseEntity<Response<String>> startNewPlayer() {
         String playerId = bowlingService.startNewPlayer();
-        return ResponseEntity.status(HttpStatus.OK).body(new Response(playerId));
+        return ResponseEntity.status(HttpStatus.OK).body(new Response<String>(playerId));
 
     }
 
     @PostMapping(value = "/{playerid}/score", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response> submitScore(@RequestBody Frames allframes,
+    public ResponseEntity<Response<String>> submitScore(@RequestBody Frames allframes,
             @PathVariable(value = "playerid") String playerId) {
 
         log.debug("playerId  : " + playerId);
         log.info("frames size : " + allframes.getAllframes().length);
 
         if (bowlingService.submitScore(allframes, playerId)) {
-            return ResponseEntity.status(HttpStatus.OK).body(new Response(BowlingUtils.MSG_SUCCESS));
+            return ResponseEntity.status(HttpStatus.OK).body(new Response<String>(BowlingUtils.MSG_SUCCESS));
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).
-        body(new Response("There is no player with given id."));
+        body(new Response<String>("There is no player with given id."));
     }
 
-    @PostMapping
-    public ResponseEntity<String> getPlayerScore() {
+    @GetMapping(value = "/{id}/score", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response> getPlayerScore(@PathVariable(value = "id") String id) {
 
-        return null;
+        Score bowlingScore = bowlingService.getScore(id);
+        if (bowlingScore == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<String>("There is no player with given id."));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(new Response<Score>(bowlingScore));
     }
 
 }

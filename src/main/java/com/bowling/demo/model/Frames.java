@@ -12,4 +12,8 @@ public class Frames {
         this.allframes = allframes;
     }
 
+    public Frame getFrame(int i) {
+        return allframes[i];
+    }
+
 }
